@@ -19,7 +19,7 @@ import Toast from "react-native-toast-message";
 import { IPconfig } from "../connectivity/IPAdress";
 
 import * as WebBrowser from "expo-web-browser";
-import GoogleSignIn from "../connectivity/GoogleSignIn";
+import GoogleSignIn from '../connectivity/GoogleSignIn'//1
 WebBrowser.maybeCompleteAuthSession();
 const LoginScreen = () => {
 
@@ -28,18 +28,34 @@ const LoginScreen = () => {
   const [usernameoremail, setUsernameOrEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [token,setToken] =useState("")
+  const [userInfo,setUserInfo] =useState("");
+
   // console.log(username)
   //debugging
-  const handleGoogleLogin =async()=>{
-    const googleSignIn =  GoogleSignIn()
-    const token = googleSignIn.token
-    setToken(token)
-    console.log(token)
-    // (token?googleSignIn.getUserInfo()  : googleSignIn.promptAsync())
-    {token ? console.log(googleSignIn.userData):googleSignIn.promptAsync()}
+  const {signInWithGoogle ,token,getUserInfo,userData} = GoogleSignIn()
+  const handleGoogleLogin = async () => {
+    console.log("running google signin")
+  
+    try {
+       await signInWithGoogle();
+       const userToken = token;
+       if(userToken)
+       await AsyncStorage.setItem("GToken",userToken);
+       const userInfo = await getUserInfo();
+       setUserInfo(userInfo)
+       console.log("userInfo",userInfo)
+       console.log("User Token", userToken) // showing null
+
+      
+      // Continue with any logic you need after successful Google Sign-In
+    } catch (error) {
+      // Handle errors
+      console.error("Google Sign-In Error:", error);
+    }
    
-  }
+    
+  };
+  
 
   const handleLogin = async () => {
     if(usernameoremail.length ==0 || password.length==0){
@@ -114,7 +130,10 @@ const LoginScreen = () => {
       try {
         const userToken = await AsyncStorage.getItem("authToken");
         const adminToken = await AsyncStorage.getItem("authAdminToken");
-
+        const GToken = await AsyncStorage.getItem("GToken");
+            if(GToken) navigation.replace("UserRoot",{
+              userInfo :userInfo
+            })
         if (userToken) navigation.replace("UserRoot");
         if (adminToken) navigation.replace("AdminRoot");
       } catch (err) {
@@ -122,8 +141,8 @@ const LoginScreen = () => {
       }
     };
     checkLoginStatus();
-  }, []);
-console.log(googleSignIn.userData);
+  }, [loading]);
+
   return (
     <SafeAreaView
       style={{ flex: 1, backgroundColor: "white", alignItems: "center" }}

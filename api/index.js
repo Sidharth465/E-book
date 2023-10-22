@@ -1,10 +1,11 @@
+require('dotenv').config()
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 const cors = require('cors')
 const app = express();
-const port = 8000;
+const port =  process.env.PORT ||8000;
 const EventEmitter = require('events');
 const emitter = new EventEmitter();
 emitter.setMaxListeners(20)
@@ -25,7 +26,7 @@ app.use(cors())
 
 
 mongoose
-  .connect("mongodb+srv://sidhrth:7529269@cluster0.itkfs6l.mongodb.net/?retryWrites=true&w=majority")
+  .connect(process.env.MONGO_DB_URL)
   .then(() => {
     console.log("Connected to MongoDB");
   })

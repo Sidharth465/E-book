@@ -17,6 +17,7 @@ import {
 import Toast from "react-native-toast-message";
 import { IPconfig } from "../connectivity/IPAdress";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import GoogleSignIn from "../connectivity/GoogleSignIn";
 
 const HomeScreen = ({ navigation }) => {
   //Hook
@@ -27,12 +28,14 @@ const HomeScreen = ({ navigation }) => {
   const [userId, setUserId] = useState("");
 
   // getToken();
+ const {userdata} = GoogleSignIn()
+  console.log("UserData from login", userdata)
 
   // Function to get the token from AsyncStorage
   const getToken = async () => {
     try {
       const token = await AsyncStorage.getItem("authToken");
-      console.log("here is the Homescreen", token); //3 value
+      // console.log("here is the Homescreen", token); //3 value
       setCurrentToken(token);
     } catch (error) {
       console.log("error In getting and setting token", error);
@@ -42,7 +45,7 @@ const HomeScreen = ({ navigation }) => {
   // Function to send the token to the backend
   const sendTokenToBackend = async () => {
     try {
-      console.log("current token for sendToken", currentToken);
+      // console.log("current token for sendToken", currentToken);
       const url = `${IPconfig}/userdetails`;
       const result = await fetch(url, {
         method: "POST",
@@ -61,7 +64,7 @@ const HomeScreen = ({ navigation }) => {
     }
   };
 
-  console.log("setUserId mai hai data ", userId);
+  // console.log("setUserId mai hai data ", userId);
 
   // Function to handle Book submission
   const handleSubmit = async () => {
@@ -150,7 +153,9 @@ const HomeScreen = ({ navigation }) => {
         </TouchableOpacity>
       </View>
         
-    
+    <View>
+      <Text> {userdata.name}</Text>
+    </View>
 
       <View style={styles.LogoutButton}>
         <Button

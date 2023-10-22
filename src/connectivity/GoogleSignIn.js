@@ -1,4 +1,5 @@
 // GoogleSignIn.js
+
 import React, { useState, useEffect } from "react";
 import * as Google from "expo-auth-session/providers/google";
 import { makeRedirectUri } from "expo-auth-session";
@@ -9,13 +10,15 @@ export default function GoogleSignIn() {
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     expoClientId:
-      "718706451340-qmrai4dm8qoolc7m1vlce7ujos0i8on9.apps.googleusercontent.com",
+      "718706451340-c548miano4iak3eo17hbd60252jldncn.apps.googleusercontent.com",
     androidClientId:
       "718706451340-45c16kgb2874v5df0lkcfj4und07815d.apps.googleusercontent.com",
     key: "AIzaSyDHWMYbsGFKotQTGjVZFaVeUNHaoDOZQHw",
     redirectUri:makeRedirectUri()
   });
-
+  const signInWithGoogle = async () => {
+    await promptAsync();
+  };
   useEffect(() => {
     if (response?.type === "success") {
       const { authentication } = response;
@@ -35,7 +38,7 @@ export default function GoogleSignIn() {
   return {
     userData,
     token,
-    promptAsync,
+    signInWithGoogle,
     getUserInfo,
   };
 }
