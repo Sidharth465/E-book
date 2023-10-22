@@ -31,6 +31,14 @@ const SignupScreen = ({navigation}) => {
     console.log("username:", username);
     console.log("Email:", email);
     console.log("Password:", password);
+    if(username.length ==0 || password.length==0 || email.length ==0){
+      Toast.show({
+        type: "error",
+        text1: "Incomplete Details!",
+        text2: "Please fill complete details",
+      });
+      return ;
+    }
 
     try {
       setLoading(true);

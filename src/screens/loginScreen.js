@@ -28,9 +28,18 @@ const LoginScreen = () => {
   const [usernameoremail, setUsernameOrEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [token,setToken] =useState("")
   // console.log(username)
   //debugging
-const googleSignIn =  GoogleSignIn()
+  const handleGoogleLogin =async()=>{
+    const googleSignIn =  GoogleSignIn()
+    const token = googleSignIn.token
+    setToken(token)
+    console.log(token)
+    // (token?googleSignIn.getUserInfo()  : googleSignIn.promptAsync())
+    {token ? console.log(googleSignIn.userData):googleSignIn.promptAsync()}
+   
+  }
 
   const handleLogin = async () => {
     if(usernameoremail.length ==0 || password.length==0){
@@ -114,7 +123,7 @@ const googleSignIn =  GoogleSignIn()
     };
     checkLoginStatus();
   }, []);
-
+console.log(googleSignIn.userData);
   return (
     <SafeAreaView
       style={{ flex: 1, backgroundColor: "white", alignItems: "center" }}
@@ -273,7 +282,7 @@ const googleSignIn =  GoogleSignIn()
               marginTop: 15,
               marginLeft: 3,
             }}
-            onPress={() => (googleSignIn.token ?navigation.replace("UserRoot") : googleSignIn.promptAsync())}
+            onPress={() => handleGoogleLogin()}
           >
             <AntDesign name="google" size={30} color="#fff" />
             <Text style={{ fontWeight: "bold", color: "white", fontSize: 17 }}>
