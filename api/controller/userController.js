@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
+const { IPconfig } = require("../../src/connectivity/IPAdress");
 
 const generateSecretKey = () => {
   return crypto.randomBytes(32).toString("hex");
@@ -25,7 +26,7 @@ const sendVerificationEmail = async (email, verificationToken) => {
     from: "E-BooksLibrary.com",
     to: email,
     subject: "Email Verification",
-    text: `Please click the following link to verify your email: http://localhost:8000/verify/${verificationToken}`,
+    text: `Please click the following link to verify your email: ${IPconfig}/verify/${verificationToken}`,
   };
 
   // Send the email
