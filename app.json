@@ -2,7 +2,7 @@
   "expo": {
     "name": "Project-2",
     "slug": "Project-2",
-    "scheme":"com.sidharthverma.project2",
+    "scheme":"com.sidharthverma.project",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -34,6 +34,7 @@
         "projectId": "270d21ee-dc84-4423-a9cc-4414368d80ac"
       }
     },
-    "owner": "sidharthverma"
+    "owner": "sidharthverma",
+    "jsEngine": "hermes"
   }
 }

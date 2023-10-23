@@ -18,6 +18,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import Toast from "react-native-toast-message";
 import { IPconfig } from "../connectivity/IPAdress";
+import { TouchableOpacity } from "react-native";
 
 const SignupScreen = ({navigation}) => {
   const [username, setUserName] = useState("");
@@ -236,7 +237,7 @@ const SignupScreen = ({navigation}) => {
 
         <View style={{ marginTop: 80 }} />
 
-        <Pressable
+        <TouchableOpacity
           onPress={handleSignup}
           style={{
             width: 200,
@@ -257,9 +258,9 @@ const SignupScreen = ({navigation}) => {
           >
             Register
           </Text>
-        </Pressable>
+        </TouchableOpacity>
 
-        <Pressable
+        <TouchableOpacity
           onPress={() => navigation.goBack()}
           style={{ marginTop: 20 }}
         >
@@ -271,7 +272,7 @@ const SignupScreen = ({navigation}) => {
               Sign In
             </Text>
           </Text>
-        </Pressable>
+        </TouchableOpacity>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

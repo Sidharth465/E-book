@@ -154,7 +154,7 @@ const HomeScreen = ({ navigation }) => {
       </View>
         
     <View>
-      <Text> {userdata.name}</Text>
+      <Text> {userdata}</Text>
     </View>
 
       <View style={styles.LogoutButton}>

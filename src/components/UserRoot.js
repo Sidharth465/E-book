@@ -7,8 +7,8 @@ import CustomDrawer from '../../api/controller/CustomDrawer';
 
 const Drawer = createDrawerNavigator();
 
-const UserRoot = ({userdata,navigation}) => {
-  const data = userdata
+const UserRoot = ({props,navigation}) => {
+  const data = props
   console.log(data)
   return (
     <Drawer.Navigator  drawerContent={props=><CustomDrawer {...props} data={data}/>} >

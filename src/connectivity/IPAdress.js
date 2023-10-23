@@ -1,1 +1,1 @@
-export const IPconfig = "http://192.168.1.5:8000";
+export const IPconfig = "http://13.235.23.26:8000";

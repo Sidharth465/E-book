@@ -32,12 +32,13 @@ const LoginScreen = () => {
 
   // console.log(username)
   //debugging
-  const {signInWithGoogle ,token,getUserInfo,userData} = GoogleSignIn()
+  const {signInWithGoogle ,token,getUserInfo,userData,} = GoogleSignIn()
+
   const handleGoogleLogin = async () => {
-    console.log("running google signin")
-  
+   
     try {
        await signInWithGoogle();
+   
        const userToken = token;
        if(userToken)
        await AsyncStorage.setItem("GToken",userToken);
@@ -45,12 +46,14 @@ const LoginScreen = () => {
        setUserInfo(userInfo)
        console.log("userInfo",userInfo)
        console.log("User Token", userToken) // showing null
-
+       navigation.replace("UserRoot",{userInfo});
+    
       
       // Continue with any logic you need after successful Google Sign-In
     } catch (error) {
       // Handle errors
       console.error("Google Sign-In Error:", error);
+      console.log("Response Data:", error.response); // Log the response data for debugging
     }
    
     
@@ -141,7 +144,7 @@ const LoginScreen = () => {
       }
     };
     checkLoginStatus();
-  }, [loading]);
+  }, []);
 
   return (
     <SafeAreaView
@@ -272,7 +275,7 @@ const LoginScreen = () => {
             Login
           </Text>
         </Pressable>
-        <Pressable
+        <TouchableOpacity
           onPress={() => navigation.navigate("Register")}
           style={{ marginTop: 15 }}
         >
@@ -285,7 +288,7 @@ const LoginScreen = () => {
               Sign Up
             </Text>
           </Text>
-        </Pressable>
+        </TouchableOpacity>
         <TouchableOpacity
             style={{
               backgroundColor: "#4285F4",
@@ -301,7 +304,7 @@ const LoginScreen = () => {
               marginTop: 15,
               marginLeft: 3,
             }}
-            onPress={() => handleGoogleLogin()}
+            onPress={ handleGoogleLogin}
           >
             <AntDesign name="google" size={30} color="#fff" />
             <Text style={{ fontWeight: "bold", color: "white", fontSize: 17 }}>
