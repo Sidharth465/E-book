@@ -26,7 +26,7 @@ app.use(cors())
 
 
 mongoose
-  .connect(process.env.MONGO_DB_URL)
+  .connect("mongodb+srv://user:user@cluster0.itkfs6l.mongodb.net/test?retryWrites=true&w=majority")
   .then(() => {
     console.log("Connected to MongoDB");
   })
