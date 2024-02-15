@@ -1,1 +1,3 @@
-export const IPconfig = "http://13.235.23.26:8000";
+
+export const IPconfig = 
+// put your ip address 
